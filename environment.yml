@@ -1,0 +1,28 @@
+name: pytorch-transfer-learning-debugger
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  # Core ML packages
+  - pytorch>=2.0.0
+  - torchvision>=0.15.0
+  # - cudatoolkit  # for GPU support
+  
+  # Data processing & visualization
+  - numpy>=1.24.0
+  - pillow>=9.0.0  # PIL
+  - matplotlib>=3.7.0
+  - tqdm>=4.65.0
+  
+  # Development tools
+  - pytest>=7.0.0
+  - black
+  - flake8
+  - mypy
+  
+  # Additional dependencies
+  - pip:
+      - -e .  # Install the package in editable mode
