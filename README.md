@@ -1,4 +1,4 @@
-# PyTorch-transfer-learning-debugger
+# PyTorch Transfer Learning Debugger
 
 A debugger for running PyTorch transfer-learning &amp; fine-tuning jobs.
 
