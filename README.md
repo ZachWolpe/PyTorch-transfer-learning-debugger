@@ -45,6 +45,25 @@ Then, run the debugger by incorporating it in your training loop.
 ----
 # Potential (General) Issues with Transfer Learning
 
+
+| Category | Issue | Symptoms | Solutions |
+|----------|--------|-----------|-----------|
+| Data Preparation | Input Size Mismatch | - Runtime errors<br>- Poor model performance | - Adjust transforms<br>- Verify model input requirements<br>- Use proper resizing |
+| | Incorrect Normalization | - Slow convergence<br>- Poor performance | - Use dataset-specific normalization<br>- Verify preprocessing steps<br>- Check input ranges |
+| | Class Imbalance | - Biased predictions<br>- Poor minority class performance | - Class weights in loss<br>- Oversampling/undersampling<br>- Augmentation for minority classes |
+| Model Architecture | Layer Freezing | - Model not learning<br>- Overfitting/underfitting | - Selective layer unfreezing<br>- Progressive unfreezing<br>- Verify gradient flow |
+| | Final Layer Mismatch | - Runtime errors<br>- Training fails | - Adjust final layer dimensions<br>- Add proper adaptation layers<br>- Verify architecture |
+| | Feature Extraction | - Suboptimal transfer<br>- Poor adaptation | - Choose appropriate layers<br>- Add adaptation layers<br>- Fine-tune feature extractors |
+| Training Process | Learning Rate | - Not converging<br>- Unstable training | - Use different LRs for layers<br>- Implement LR scheduling<br>- Start with small LR |
+| | Catastrophic Forgetting | - Poor generalization<br>- Loss of pretrained features | - Gradual fine-tuning<br>- Knowledge distillation<br>- Regularization techniques |
+| | Batch Size | - Memory errors<br>- Poor convergence | - Adjust based on GPU memory<br>- Use gradient accumulation<br>- Find optimal batch size |
+| Resource Management | Memory Usage | - OOM errors<br>- Slow training | - Batch size adjustment<br>- Gradient checkpointing<br>- Efficient data loading |
+| | Training Time | - Slow convergence<br>- Resource inefficiency | - Optimize data pipeline<br>- Use GPU acceleration<br>- Implement early stopping |
+| Validation/Testing | Overfitting | - High train/low val accuracy<br>- Poor generalization | - Add regularization<br>- Use early stopping<br>- Implement cross-validation |
+| | Evaluation Mode | - Inconsistent results<br>- Poor inference | - Proper train/eval modes<br>- Consistent preprocessing<br>- Batch norm handling |
+
+
+
 | Category | Issue | Symptoms | Debugging Steps | Solutions |
 |----------|--------|----------|-----------------|-----------|
 | Data Preparation | Input Size Mismatch | - Runtime errors<br>- Poor model performance | pythonprint(f"Input shape: {x.shape}")print(f"Expected: {model.input_size}") | - Adjust transforms<br>- Verify model input requirements<br>- Use proper resizing |
@@ -64,6 +83,26 @@ Then, run the debugger by incorporating it in your training loop.
 ----
 # Potential Issues with the Computational Graph
 
+
+
+| Issue Category | Specific Problem | Symptoms | Solutions |
+|----------------|------------------|-----------|------------|
+| Gradient Flow | Vanishing Gradients | - Near-zero gradients in early layers<br>- Model not learning | - Use gradient clipping<br>- Add residual connections<br>- Change activation functions |
+| | Exploding Gradients | - NaN losses<br>- Large gradient values | - Implement gradient clipping<br>- Reduce learning rate<br>- Check initialization |
+| | Disconnected Graphs | - Some parameters not updating<br>- Partial learning | - Remove accidental detach()<br>- Verify tensor operations maintain graph |
+| Tensor Operations | In-place Operations | - Backward pass errors<br>- "Leaf variable modified" error | - Replace in-place ops (+=) with regular ops (+)<br>- Create new tensors instead of modifying |
+| | Device Mismatches | - Runtime errors<br>- CUDA errors | - Use .to(device) consistently<br>- Implement device checker |
+| | Detached Tensors | - No gradients flowing<br>- Parts of model not learning | - Set requires_grad=True where needed<br>- Remove unnecessary detach() calls |
+| Autograd Engine | Broken Computational Paths | - Gradients not computed<br>- backward() errors | - Fix graph connections<br>- Ensure proper tensor operations |
+| | Mixed Precision Errors | - NaN losses<br>- Unstable training | - Use GradScaler<br>- Adjust loss scaling<br>- Check dtype consistency |
+| Loss Computation | Zero/NaN Losses | - Model not learning<br>- Training instability | - Verify loss function implementation<br>- Check input normalization |
+| | Wrong Reduction | - Incorrect gradient scaling<br>- Slow convergence | - Set appropriate reduction method<br>- Verify batch dimension handling |
+
+
+
+
+
+DEPRECATEDD 
 | Issue Category | Specific Problem | Symptoms | Debugging Steps | Solution Example |
 |----------------|------------------|-----------|-----------------|------------------|
 | Gradient Flow |
