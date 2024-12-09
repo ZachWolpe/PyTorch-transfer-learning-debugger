@@ -4,7 +4,7 @@ Diagnose and debug common issues when performing in transfer learning & fine-tun
 
 
 
-![Computational Graph](https://github.com/ZachWolpe/PyTorch-transfer-learning-debugger/tree/main/notes/computational-graph.png)
+![Computational Graph](https://github.com/ZachWolpe/PyTorch-transfer-learning-debugger/tree/main/notes/comp-graph2.png)
 
 
 **_An interactive debugging experience for PyTorch code, enabling users to diagnose issues related to weight updates during training, as well as to address problems with slow or unstable convergence._**
