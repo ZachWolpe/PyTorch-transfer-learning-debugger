@@ -29,6 +29,35 @@ cudnn.benchmark = True
 
 
 class torch_debugger:
+    """
+    ------------------------------------------------------------------------
+    pyTorch Transfer Learning Debugger
+    ----------------------------------
+
+    This class provides functionality to debug and visualize the training 
+    process of models using transfer learning in PyTorch. It includes methods 
+    for logging weight statistics, tracking weight updates, and displaying 
+    messages during the training process.
+
+    Methods
+    -------
+    log_weights_mean(named_parameters, keys=None):
+        Logs the mean of specified model parameter(s) during training.
+
+    initial_model_weights_state:
+        Property to get or set the initial state of model weights - for benchmarking.
+
+    log_stage(msg: str):
+        Logs the current stage of the training process with a message.
+
+    plot_weight_updates(parameter_name='conv1.weight'):
+        Plots the updates of the specified parameter weights over time.
+
+    log_predefined_message(progress_str, message_id=0):
+        Logs a predefined message based on the provided message ID.
+
+    ------------------------------------------------------------------------
+    """
 
     def __init__(self, enable_log_stage=True) -> None:
         self.log_stage_counter = 0
