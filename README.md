@@ -7,7 +7,7 @@ Diagnose and debug common issues when performing in transfer learning & fine-tun
 
 
 ---
-# Getting Started
+# Installation (PyPI)
 
 pip install the package:
 
