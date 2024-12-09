@@ -21,4 +21,5 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/pytorch-transfer-learning-debugger"
+Homepage = "https://pypi.org/project/pytorch-transfer-learning-debugger/"
+ProjectHomepage = "https://github.com/ZachWolpe/pytorch-transfer-learning-debugger"

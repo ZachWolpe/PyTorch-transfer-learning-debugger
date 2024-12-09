@@ -2,6 +2,9 @@
 
 Diagnose and debug common issues when performing in transfer learning & fine-tuning with `PyTorch`.
 
+**_Purpose_: _To provide an interactive debugging experience for PyTorch code, enabling users to diagnose issues related to weight updates during training, as well as to address problems with slow or unstable convergence._**
+
+
 
 ---
 # Getting Started
@@ -19,8 +22,103 @@ pip install git+https://github.com/ZachWolpe/PyTorch-transfer-learning-debugger.
 ```
 
 ----
+# Benefits
+
+- Helps identify if weights are properly updating during training
+- Provides visibility into each stage of the training process
+- Enables early detection of training issues
+- Supports both high-level and granular debugging approaches
+
+This debugging tool is particularly useful when:
+- Troubleshooting training convergence issues
+- Verifying proper weight updates
+- Understanding the flow of data through the model
+- Diagnosing optimization problems
+
+
+----
 # Getting Started
 
+
+### Purpose
+_An interactive debugging tool for PyTorch code that helps diagnose issues related to weight updates during training and addresses problems with slow or unstable convergence._
+
+### Key Components
+
+## 1. Debug Mode Features
+The debugger is implemented through a `torch_debugger` class that provides two main debugging modes:
+
+1. **Basic Debug Mode** (`debug_mode=True`):
+   - Tracks model weight updates
+   - Only monitors weights with `requires_grad=True`
+   - Populates `torch_debugger._track_weights` dictionary for analysis
+
+2. **Granular Debug Mode** (`granular_logging=True`):
+   - Exits after one cycle through the dataloader
+   - Logs each stage of the computational graph:
+     - Optimizer verification
+     - Gradient zeroing
+     - Data movement to device
+     - Forward pass and loss computation
+     - Gradient computation and optimizer steps
+
+## 2. Implementation Example
+
+Here's how the debugger is integrated into the training loop:
+
+```python
+def train_model(model, criterion, optimizer, scheduler, num_epochs=25, 
+                debug_mode=True, granular_logging=False):
+    # Initialize debugger if debug_mode is enabled
+    torch_debugger_inst = None
+    if debug_mode:
+        torch_debugger_inst = torch_debugger(enable_log_stage=granular_logging)
+        torch_debugger_inst.verify_optimizer_state(optimizer)
+        torch_debugger_inst.initial_model_weights_state = model.state_dict().copy()
+        
+    # Training loop with debugging hooks
+    for epoch in range(num_epochs):
+        for phase in ['train', 'val']:
+            for inputs, labels in dataloaders[phase]:
+                if debug_mode:
+                    torch_debugger_inst.log_stage('Moving data to device')
+                    # ... more logging stages ...
+                    
+                if phase == 'train':
+                    torch_debugger_inst.track_weights(model.named_parameters())
+```
+
+## 3. Usage
+
+To use the debugger:
+
+```python
+torch_debugger_inst, model = train_model(
+    model_ft,
+    criterion,
+    optimizer_ft,
+    exp_lr_scheduler,
+    num_epochs=25,
+    debug_mode=True,
+    granular_logging=True  # For detailed stage logging
+)
+```
+
+## 4. Analysis Tools
+
+The debugger provides visualization tools to analyze training:
+
+```python
+# Plot weight updates over time
+torch_debugger_inst.plot_weight_updates()
+
+# Access tracked weights
+weights = torch_debugger_inst._track_weights['conv1.weight']
+```
+
+
+----
+# Comprehensive Tutorial
 
 For a comprehensive tutorial, see the `GettingStarted.ipynb` Juypyter notebook.
 
