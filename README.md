@@ -1,5 +1,4 @@
-# PyTorch Transfer Learning Debugger
-
+# PyTorch Transfer Learning Debugger (v0.1.1)
 
 
 
@@ -9,14 +8,15 @@
 pip install the package:
 
 ```bash
-pip install torch-transfer-learning-debugger
+pip install pytorch-transfer-learning-debugger
 ```
 
 or
 
 ```bash
-pip install git+<URL>
+pip install git+https://github.com/ZachWolpe/PyTorch-transfer-learning-debugger.git
 ```
+
 
 Then, run the debugger by incorporating it in your training loop.
 
@@ -125,11 +125,6 @@ DEPRECATEDD
 | Custom Layers |
 | | Incorrect Forward/Backward | - Wrong gradients<br>- Training instability | pythonclass CustomLayer(nn.Module): def forward(self, x): self.save_for_backward(x) return output | - Implement custom autograd function<br>- Verify gradient computation |
 | | Shape Mismatches | - Runtime errors<br>- Dimension errors | pythondef check_shapes(x): print(f"Input shape: {x.shape}") return x | - Add shape assertions<br>- Print intermediate shapes |
-
-----
-# For Developers: Fork
-
-A debugger for running PyTorch transfer-learning &amp; fine-tuning jobs.
 
 
 ----
