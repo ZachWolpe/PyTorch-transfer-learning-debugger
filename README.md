@@ -27,6 +27,8 @@ or
 pip install git+https://github.com/ZachWolpe/PyTorch-transfer-learning-debugger.git
 ```
 
+[Access the `PyPI` source](https://pypi.org/project/pytorch-transfer-learning-debugger/).
+
 ----
 # Benefits
 
