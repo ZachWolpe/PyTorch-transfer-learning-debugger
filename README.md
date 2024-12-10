@@ -4,7 +4,7 @@ Diagnose and debug common issues when performing in transfer learning & fine-tun
 
 
 
-![Computational Graph](https://github.com/ZachWolpe/PyTorch-transfer-learning-debugger/blob/main/notes/comp-graph2.png)
+![Computational Graph](https://github.com/ZachWolpe/PyTorch-transfer-learning-debugger/blob/main/assets/comp-graph2.png)
 
 
 
@@ -123,6 +123,10 @@ torch_debugger_inst.plot_weight_updates()
 # Access tracked weights
 weights = torch_debugger_inst._track_weights['conv1.weight']
 ```
+
+## 5. Results
+
+![Weight Updates](https://github.com/ZachWolpe/PyTorch-transfer-learning-debugger/blob/main/assets/result.png)
 
 
 ----
